@@ -4,121 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bangladesh Height Percentile</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
-<style>
-  body {
-    font-family: 'Inter', sans-serif;
-    --primary-color: #007BFF;
-    --primary-hover: #0056b3;
-    --light-primary: #e6f2ff;
-    --text-dark: #1a202c;
-    --text-medium: #4a5568;
-    --text-light: #718096;
-    --background-light: #f7fafc;
-    --border-color: #e2e8f0;
-    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --input-shadow-focus: 0 0 0 3px rgba(0, 123, 255, 0.2);
-    --danger-color: #dc3545;
-  }
-  :root {
-    /* This is a duplicate of the above :root block, but keeping it to match the original structure minus errors */
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    background-color: var(--background-light);
-    color: var(--text-medium);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  .container {
-    background: white;
-    border-radius: 16px;
-    box-shadow: var(--card-shadow);
-    padding: 40px;
-    max-width: 500px;
-    width: 90%;
-    text-align: center;
-    border: 1px solid var(--border-color);
-  }
-  h1 { 
-    margin-top: 0;
-    margin-bottom: 25px; 
-    font-weight: 600; 
-    color: var(--text-dark); 
-    font-size: 1.75rem;
-  }
-  .input-group { margin-bottom: 20px; }
-  label { 
-    display: block; 
-    margin-bottom: 8px; 
-    font-weight: 500; 
-    text-align: left; 
-    color: var(--text-medium); 
-    font-size: 0.9rem;
-  }
-  select, input, button {
-    width: 100%;
-    padding: 12px 15px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    font-size: 1rem;
-    box-sizing: border-box;
-    background-color: #fff;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  input:focus, select:focus { 
-    outline: none; 
-    border-color: var(--primary-color); 
-    box-shadow: var(--input-shadow-focus); 
-  }
-  button {
-    background: var(--primary-color); 
-    color: white; 
-    border: none; 
-    margin-top: 25px; 
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.3s, transform 0.2s;
-  }
-  button:hover { background: var(--primary-hover); transform: translateY(-2px); }
-  #result { margin-top: 30px; font-weight: 600; font-size: 1.2rem; color: var(--text-dark); line-height: 1.5; }
-  #results-container {
-    display: none;
-    margin-top: 35px;
-    text-align: left;
-    animation: fadeIn 0.5s ease-in-out;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .result-primary {
-    text-align: center;
-    margin-bottom: 25px;
-  }
-  .result-primary .percentile-value {
-    font-size: 3.5rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    line-height: 1;
-  }
-  .result-primary .percentile-value span { font-size: 1.5rem; color: var(--text-light); }
-  .result-primary .result-text {
-    margin-top: 10px;
-    font-size: 1.1rem;
-    color: var(--text-dark);
-  }
-  #explain { margin-top: 20px; font-size: 0.9rem; color: var(--text-medium); background: var(--light-primary); padding: 15px; border-radius: 12px; line-height: 1.8; }
-  .explain-grid { display: grid; grid-template-columns: auto 1fr; gap: 8px 15px; }
-  .explain-grid > div { display: contents; }
-  .explain-grid .label { font-weight: 600; color: var(--text-medium); }
-  .explain-grid .value { text-align: right; color: var(--text-dark); }
-  canvas { margin-top: 20px; max-width: 100%; border-radius: 8px; }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container">
@@ -130,92 +16,32 @@
       <option value="female">Female</option>
     </select>
   </div>
-
   <div class="input-group">
     <label for="unit">Height Input Method</label>
     <select id="unit" onchange="showHeightInput()">
       <option value="ftin">Feet & Inches</option>      <option value="cm">Centimeters</option>
-      
     </select>
   </div>
-  <div id="heightFtInDiv">
-    <label for="heightFeet">ft</label>
-    <input type="number" id="heightFeet" placeholder="e.g. 5" min="0">
-    <label for="heightInches">in</label>
-    <input type="number" id="heightInches" placeholder="e.g. 7" min="0" max="11">
+  <div id="heightFtInDiv" style="display: flex;">
+    <div>
+      <label for="heightFeet">Feet</label>
+      <input type="number" id="heightFeet" placeholder="e.g. 5" min="0">
+    </div>
+    <div>
+      <label for="heightInches">Inches</label>
+      <input type="number" id="heightInches" placeholder="e.g. 7" min="0" max="11">
+    </div>
   </div>
   <div id="heightCmDiv" style="display:none;">
     <label for="heightCm">Height (cm)</label>
     <input type="number" id="heightCm" placeholder="e.g. 172" min="0">
   </div>  
   <button onclick="calculatePercentile()">Calculate</button>
-
   <div id="results-container">
     <div id="result"></div>
     <div id="explain"></div>
   </div>
-</div><script>
-function showHeightInput(){
-  let unit=document.getElementById('unit').value;
-  document.getElementById('heightCmDiv').style.display = (unit==='cm')?'block':'none';
-  document.getElementById('heightFtInDiv').style.display = (unit==='ftin')?'block':'none';
-}
-
-// Error function
-function erf(x){
-  let a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
-  let sign=x<0?-1:1;
-  x=Math.abs(x);
-  let t=1/(1+p*x);
-  return sign*(1-((((a5*t+a4)*t+a3)*t+a2)*t+a1)*t*Math.exp(-x*x));
-}
-
-function calculatePercentile(){
-  let gender=document.getElementById('gender').value;
-  let unit=document.getElementById('unit').value;
-  let heightCm;
-  
-  if(unit==='cm'){ heightCm=parseFloat(document.getElementById('heightCm').value); }
-  else{
-    let feet=parseFloat(document.getElementById('heightFeet').value);
-    let inches=parseFloat(document.getElementById('heightInches').value);
-    heightCm=feet*30.48 + inches*2.54;
-  }
-
-  if(!heightCm || heightCm<=0){
-    const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = `<p style="text-align:center; color: red;">Please enter a valid height.</p>`;
-    document.getElementById('results-container').style.display = 'block';
-    document.getElementById('explain').style.display = 'none';
-    return;
-  }
-
-  let mean, sd;
-  if(gender==='male'){mean=168.3; sd=7.33;}
-  else{mean=151.6; sd=7.96;}
-
-  let z=(heightCm-mean)/sd;
-  let percentile=(0.5*(1+erf(z/Math.sqrt(2))))*100;
-
-  document.getElementById('results-container').style.display = 'block';
-  document.getElementById('explain').style.display='block';
-
-  document.getElementById('result').innerHTML = `
-    <div class="result-primary">
-      <div class="percentile-value">${percentile.toFixed(1)}<span>%</span></div>
-      <div class="result-text">You are taller than ~${percentile.toFixed(1)}% of adult ${gender}s in Bangladesh.</div>
-    </div>`;
-
-  document.getElementById('explain').innerHTML=
-    `<div class="explain-grid">
-        <div><span class="label">Your Height:</span><span class="value">${heightCm.toFixed(1)} cm</span></div>
-        <div><span class="label">Mean (${gender}):</span><span class="value">${mean} cm</span></div>
-        <div><span class="label">Standard Deviation:</span><span class="value">${sd} cm</span></div>
-        <div><span class="label">Z-Score:</span><span class="value">${z.toFixed(2)}</span></div>
-     </div>
-     <p style="font-size:0.8rem; text-align:center; margin-top:15px; color: var(--text-light);">Source: Khan, M. H. (2014). Anthropometric Estimation of Bangladeshis.</p>`;
-
- }
- </script>
+</div>
+<script src="script.js"></script>
  </body>
 </html>
