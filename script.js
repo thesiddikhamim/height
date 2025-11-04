@@ -39,11 +39,15 @@ function calculatePercentile() {
     return;
   }
 
-  const mean = gender === 'male' ? 168.3 : 151.6;
-  const sd = gender === 'male' ? 7.33 : 7.96;
+  const mean = gender === 'male' ? 167.7 : 149.61;
+  const sd = gender === 'male' ? 5.25 : 5.07;
+  const source = gender === 'male' 
+    ? "Source: Study of 470 males, ages 15–64 (2014 publication)" 
+    : "Source: Study of 100 adult women (2021 publication of 2010–2011 data)";
 
   const z = (heightCm - mean) / sd;
   const percentile = (0.5 * (1 + erf(z / Math.sqrt(2)))) * 100;
+
 
   resultDiv.innerHTML = `
     <div class="result-primary">
@@ -58,7 +62,7 @@ function calculatePercentile() {
         <div><span class="label">Standard Deviation:</span><span class="value">${sd} cm</span></div>
         <div><span class="label">Z-Score:</span><span class="value">${z.toFixed(2)}</span></div>
      </div>
-     <p style="font-size:0.8rem; text-align:center; margin-top:15px; color: var(--text-light);">Source: Khan, M. H. (2014). Anthropometric Estimation of Bangladeshis.</p>`;
+     <p style="font-size:0.8rem; text-align:center; margin-top:15px; color: var(--text-light);">${source}</p>`;
 
   explainDiv.style.display = 'block';
   resultsContainer.style.display = 'block';
