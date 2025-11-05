@@ -40,7 +40,7 @@ function calculatePercentile() {
   }
 
   const mean = gender === 'male' ? 167.7 : 151.6;
-  const sd = gender === 'male' ? 7.33  : 7.96;
+  const sd = gender === 'male' ? 6.43  : 5.4;
   const source = gender === 'male' 
     ? "Source: Khan, Murad Hossain (2014). 'Anthropometric Estimation of Bangladeshis living in three different areas'" 
     : "Source: Khan, Murad Hossain (2014). 'Anthropometric Estimation of Bangladeshis living in three different areas'";
