@@ -170,3 +170,12 @@ button:hover {
   text-align: right;
   color: var(--text-dark);
 }
+
+
+.footer {
+  margin: 24px 0 12px;
+  text-align: center;
+  color: var(--ink-dim);
+  font-size: 12px;
+  bottom: 0;
+}
