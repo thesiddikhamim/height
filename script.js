@@ -39,11 +39,11 @@ function calculatePercentile() {
     return;
   }
 
-  const mean = gender === 'male' ? 167.7 : 149.61;
-  const sd = gender === 'male' ? 5.25 : 5.07;
+  const mean = gender === 'male' ? 167.7 : 151.6;
+  const sd = gender === 'male' ? 7.33  : 7.96;
   const source = gender === 'male' 
-    ? "Source: Study of 470 males, ages 15–64 (2014 publication)" 
-    : "Source: Study of 100 adult women (2021 publication of 2010–2011 data)";
+    ? "Source: Khan, Murad Hossain (2014). 'Anthropometric Estimation of Bangladeshis living in three different areas'" 
+    : "Source: Khan, Murad Hossain (2014). 'Anthropometric Estimation of Bangladeshis living in three different areas'";
 
   const z = (heightCm - mean) / sd;
   const percentile = (0.5 * (1 + erf(z / Math.sqrt(2)))) * 100;
