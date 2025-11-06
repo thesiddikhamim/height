@@ -40,19 +40,25 @@ function calculatePercentile() {
   }
 
   const mean = gender === 'male' ? 167.7 : 151.6;
-  const sd = gender === 'male' ? 6.43  : 5.62;
+  const sd = gender === 'male' ? 7.33  : 7.96;
   const source = gender === 'male' 
-    ? "Source: Khan, Murad Hossain (2014). 'Anthropometric Estimation of Bangladeshis living in three different areas'" 
-    : "Source: Khan, Murad Hossain (2014). 'Anthropometric Estimation of Bangladeshis living in three different areas'";
+    ? "Source: Khan, Murad Hossain (2014). 'Anthropometric Estimation of Bangladeshis'" 
+    : "Source: Khan, Murad Hossain (2014). 'Anthropometric Estimation of Bangladeshis'" ;
 
   const z = (heightCm - mean) / sd;
-  const percentile = (0.5 * (1 + erf(z / Math.sqrt(2)))) * 100;
+  let percentile = (0.5 * (1 + erf(z / Math.sqrt(2)))) * 100;
 
+  // Cap percentile for extreme values to be more realistic
+  if (percentile >= 99.99) {
+    percentile = 99.99;
+  } else if (percentile <= 0.01) {
+    percentile = 0.01;
+  }
 
   resultDiv.innerHTML = `
     <div class="result-primary">
-      <div class="percentile-value">${percentile.toFixed(1)}<span>%</span></div>
-      <div class="result-text">You are taller than ~${percentile.toFixed(1)}% of adult ${gender}s in Bangladesh.</div>
+      <div class="percentile-value">${percentile.toFixed(2)}<span>%</span></div>
+      <div class="result-text">You are taller than ~${percentile.toFixed(2)}% of adult ${gender}s in Bangladesh.</div>
     </div>`;
 
   explainDiv.innerHTML =
